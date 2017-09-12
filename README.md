@@ -30,3 +30,7 @@ Also, you nedd to set the vairables in the enviroment:
 
 
 For runing the project, just run ``python netatmo.py`` in terminal.
+
+This project has deployed in Heroku:
+  
+    http://netatmo-devices.herokuapp.com/

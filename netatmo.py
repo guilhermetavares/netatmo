@@ -4,13 +4,7 @@ import uuid
 
 from urllib.parse import urlencode
 
-import json
-
-from flask import Flask
-from flask import request
-from flask import make_response
-from flask import redirect
-from flask import session
+from flask import Flask, request, redirect, session
 
 
 app = Flask(__name__)
@@ -129,7 +123,7 @@ def login():
         'redirect_uri': request.url.replace(request.path, '/'),
         'client_id': client.NETATMO_APP_ID,
         'scope': 'read_station',
-        'state': uuid.uuid4(),
+        'state': uuid.uuid4(), # for futher verification
     }
     return redirect(client.authorize(params))
 
