@@ -99,7 +99,7 @@ def devices():
 
 @app.route('/refresh', methods=['GET'])
 def refresh():
-    if 'refresh_token' in in session:
+    if 'refresh_token' in session:
         refresh_token = session['refresh_token']
         params = {
             'grant_type': 'refresh_token',
