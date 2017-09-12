@@ -15,18 +15,18 @@ Solution
 
 For use this app, you need create a app in ``https://dev.netatmo.com/myaccount/``
 
-Firt, you nedd to install the ``requirements.txt``: ::
+Firt, you nedd to install the ``requirements.txt``:
     
     Flask==0.12.2
     requests==2.18.3
 
 
-Also, you nedd to set the vairables in the enviroment: ::
+Also, you nedd to set the vairables in the enviroment:
 	
-	SECRET_KEY = '111' # for you only safety, but its optional - default '123'
-	NETATMO_APP_ID = '52r7622' # your API netatmo client ID
-	NETATMO_CLIENT_SECRET = '26t82gi2ug2' # yout API netatmo secret
-	PORT = '8000' # default 8000, but its optional
+	export SECRET_KEY='111' # for you only safety, but its optional - default '123'
+	export NETATMO_APP_ID='52r7622' # your API netatmo client ID
+	export NETATMO_CLIENT_SECRET='26t82gi2ug2' # yout API netatmo secret
+	export PORT='8000' # default 8000, but its optional
 
 
 For runing the project, just run ``python netatmo.py`` in terminal.
