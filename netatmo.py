@@ -73,8 +73,9 @@ def devices():
             session['access_token'] = access_token
             session['refresh_token'] = refresh_token
 
-    if 'access_token' in session:
+    elif 'access_token' in session:
         access_token = session['access_token']
+        refresh_token = session['refresh_token']
     
     if access_token:
         response = client.get_response('api/partnerdevices', access_token)
@@ -85,6 +86,8 @@ def devices():
             if error_code == 31:
                 return return_json(response)
 
+            if error_code == 3:
+                return redirect('/refresh')
 
             return str(response)
 
@@ -92,6 +95,13 @@ def devices():
         'message': 'No login identify, click the link for show your devices',
         'link': request.url + 'login'
     })
+
+
+@app.route('/refresh', methods=['GET'])
+def refresh():
+    # session['access_token'] = None
+    # session['refresh_token'] = None
+    return redirect('/')
 
 
 @app.route('/logout', methods=['GET'])
