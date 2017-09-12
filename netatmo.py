@@ -99,9 +99,21 @@ def devices():
 
 @app.route('/refresh', methods=['GET'])
 def refresh():
-    # session['access_token'] = None
-    # session['refresh_token'] = None
-    return redirect('/')
+    if 'refresh_token' in in session:
+        refresh_token = session['refresh_token']
+        params = {
+            'grant_type': 'refresh_token',
+            'client_id': client.NETATMO_APP_ID,
+            'client_secret': client.NETATMO_CLIENT_SECRET,
+            'refresh_token': refresh_token,
+        }
+        access_token, refresh_token = client.get_access_token(params)
+        if access_token:
+            session['access_token'] = access_token
+            session['refresh_token'] = refresh_token
+            return redirect('/')
+
+    return redirect('/login')
 
 
 @app.route('/logout', methods=['GET'])
