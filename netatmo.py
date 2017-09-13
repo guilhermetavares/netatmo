@@ -81,12 +81,12 @@ def devices():
         if 'error' in response:
             error_code = response.get('error', {}).get('code')
             
-            if error_code == 31:
+            if error_code == 31: # no devices
                 return return_json(response)
 
-            if error_code in [2, 3]:
+            if error_code in [2, 3]: # reload token
                 return redirect('/refresh')
-
+        else:
             return str(response)
     return redirect('/')
 
