@@ -114,7 +114,7 @@ def refresh():
 def home():
     if 'access_token' in session:
         return return_json({
-            'message': 'You is logged in with the netatmo account',
+            'message': 'You are logged in with the netatmo account',
             'devices': request.url + 'devices',
             'logout': request.url + 'logout',
         })
