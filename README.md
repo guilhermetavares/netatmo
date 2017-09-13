@@ -34,3 +34,25 @@ For runing the project, just run ``python netatmo.py`` in terminal.
 This project has deployed in Heroku:
   
     http://netatmo-devices.herokuapp.com/
+
+
+Steps
+-----
+
+Considering, the url of project ``<PROJECT_URL>``.
+
+a. The url ``<PROJECT_URL>/login`` receive a user authorization request
+
+
+b. In the ``login``, the Netatmo authorization/authentication endpoint has is configured for the class ``NetatmoClient`` and the user is redirected:
+
+
+c. After the user authenticate in ``NetAtmo`` auth page, user is redirected to page ``<PROJECT_URL>/authenticate`` with a ``code`` in the ``GET`` params.
+
+
+d. With this ``code``, the ``access_token`` is acquired by api ``https://api.netatmo.com/oauth2/token`` using ``NetatmoClient`` and saved in the session. if the process of acquiring the ``access_token`` was successful, the user is redirected for the ``<PROJECT_URL>/devices``
+
+
+e. In the ``<PROJECT_URL>/devices``, if exists a ``access_token`` in ``session`` the page returns the devices list per api ``https://api.netatmo.com/api/partnerdevices``. If the token is expired a new token is generate in the ``<PROJECT_URL>/refresh``
+
+     

@@ -50,9 +50,8 @@ def return_json(response):
     )
 
 
-@app.route('/', methods=['GET'])
-def devices():
-    access_token = None
+@app.route('/authenticate', methods=['GET'])
+def authenticate():
     code = request.args.get('code')
     if code:
         params = {
@@ -66,12 +65,16 @@ def devices():
         if access_token:
             session['access_token'] = access_token
             session['refresh_token'] = refresh_token
+            return redirect('/devices')
+    return redirect('/')
 
-    elif 'access_token' in session:
+
+@app.route('/devices', methods=['GET'])
+def devices():
+    if 'access_token' in session:
         access_token = session['access_token']
         refresh_token = session['refresh_token']
     
-    if access_token:
         response = client.get_response('api/partnerdevices', access_token)
 
         if 'error' in response:
@@ -84,11 +87,7 @@ def devices():
                 return redirect('/refresh')
 
             return str(response)
-
-    return return_json({
-        'message': 'No login identify, click the link for show your devices',
-        'link': request.url + 'login'
-    })
+    return redirect('/')
 
 
 @app.route('/refresh', methods=['GET'])
@@ -110,6 +109,20 @@ def refresh():
     return redirect('/login')
 
 
+@app.route('/', methods=['GET'])
+def home():
+    if 'access_token' in session:
+        return return_json({
+            'message': 'You is logged in with the netatmo account',
+            'devices': request.url + 'devices',
+            'logout': request.url + 'logout',
+        })
+    return return_json({
+        'message': 'No login identify, click the link for show your devices',
+        'link': request.url + 'login'
+    })
+
+
 @app.route('/logout', methods=['GET'])
 def logout():
     session['access_token'] = None
@@ -120,7 +133,7 @@ def logout():
 @app.route('/login', methods=['GET'])
 def login():
     params = {
-        'redirect_uri': request.url.replace(request.path, '/'),
+        'redirect_uri': request.url.replace(request.path, '/authenticate'),
         'client_id': client.NETATMO_APP_ID,
         'scope': 'read_station',
         'state': uuid.uuid4(), # for futher verification
