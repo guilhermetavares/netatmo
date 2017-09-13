@@ -84,7 +84,7 @@ def devices():
             if error_code == 31:
                 return return_json(response)
 
-            if error_code == 3:
+            if error_code in [2, 3]:
                 return redirect('/refresh')
 
             return str(response)
