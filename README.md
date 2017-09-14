@@ -16,6 +16,8 @@ Solution
 
 For use this app, you need create a app in ``https://dev.netatmo.com/myaccount/``
 
+This projects it`s made using ``python-3.5.2``
+
 Firt, you nedd to install the ``requirements.txt``:
     
     Flask==0.12.2
