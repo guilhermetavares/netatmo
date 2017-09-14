@@ -3,6 +3,7 @@ Netatmo
 
 Using Python implement a single file program that retrieves from Netatmo cloud an access token that allows to access the list of devices of a given user.
 The program MUST include the following steps:
+
 a. Receive the user authorization request via HTTP
 b. Redirect the user to the Netatmo authorization/authentication endpoint
 c. Receive the token exchange code
@@ -29,17 +30,18 @@ Also, you nedd to set the vairables in the enviroment:
 	export PORT='8000' # default 8000, but its optional
 
 
-For runing the project, just run ``python netatmo.py`` in terminal.
+For runing the project, just execute ``python netatmo.py`` in terminal.
 
 This project has deployed in Heroku:
   
     http://netatmo-devices.herokuapp.com/
 
 
-Steps
------
+Step by Step
+------------
 
 Considering, the url of project ``<PROJECT_URL>``.
+
 
 a. The url ``<PROJECT_URL>/login`` receive a user authorization request
 
